@@ -54,12 +54,14 @@ def loss_function_penal(xVal, yVal, theta, lamb):
     hVal = np.dot(xVal, theta)
     hVal = np.reshape(hVal, (len(hVal), 1))
     
-    penalties = theta
-    penalties[0] = 0
+    penalties = 0
+    for i in range(len(theta)):
+        if i != 0:
+            penalties += theta[i]**2
     
     J = np.sum((yVal - hVal)**2)
     
-    J += lamb * np.sum(penalties**2)
+    J += penalties
     
     J /= (2*len(yVal))
     
@@ -272,7 +274,7 @@ for i in range(len(num_vars_b) - 1):
 # In[13]:
 
 
-epochs = 500
+epochs = 200
 alpha = 0.02
 
 
@@ -381,6 +383,22 @@ plt.grid()
 plt.xlabel('Number of epochs')
 plt.ylabel('Cost (J)')
 plt.title('Convergence of gradient descent')
+
+
+# In[20]:
+
+
+print("1A", theta_1A)
+print()
+print("1B", theta_1B)
+print()
+print("2A", theta_2A)
+print()
+print("2B", theta_2B)
+print()
+print("3A", theta_3A)
+print()
+print("3B", theta_3B)
 
 
 # In[ ]:
